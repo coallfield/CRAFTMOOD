@@ -16,13 +16,20 @@ export const useMoodboardsStore = defineStore('moodboards', () => {
     const isSaved = ref(false)
     const isCurrentPage = ref(true)
     const router = useRouter()
+    const isFetchingMoodboards = ref(true)
     const getMoodboards = async () => {
         try {
+            isFetchingMoodboards.value = true
             const response: IMoodboard[] = await MoodboardService.getMoodboards(`${SERVER_URL}/moodboards`)
             setMoodboards(response)
           
         } catch (error) {
-            console.log(error)
+            errorMessage.value = 'FAILED TO LOAD MOODBOARDS'
+            setTimeout(() => {
+                errorMessage.value = ''
+            },1500)
+        } finally {
+            isFetchingMoodboards.value = false
         }
     }
 
@@ -129,5 +136,5 @@ export const useMoodboardsStore = defineStore('moodboards', () => {
 
     
 
-    return {savePhoto, getMoodboards, getCurrentMoodboard, deletePhoto, createMoodboard, deleteMoodboard, renameMoodboard, moodboards, isSaving, isError, errorMessage, isSaved, isCurrentPage}
+    return {savePhoto, getMoodboards, getCurrentMoodboard, deletePhoto, createMoodboard, deleteMoodboard, renameMoodboard, moodboards, isSaving, isError, errorMessage, isSaved, isCurrentPage, isFetchingMoodboards}
 })

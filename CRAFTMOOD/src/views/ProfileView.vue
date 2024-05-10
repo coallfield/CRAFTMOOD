@@ -1,12 +1,13 @@
 <template>
     <div class="profile-page">
-        <div v-if="!isFetchingMoodboards" class="moodboards">
+        <div v-if="!moodboardsStore.isFetchingMoodboards" class="moodboards">
             <MoodBoards :moodboards="moodboardsStore.moodboards" v-if="moodboardsStore.moodboards.length > 0"></MoodBoards>
             <h1 v-else class="no-moodboard">ADD SOME MOODBOARDS</h1>
         </div>
         <SkeletonList v-else width="400px" height="200px" :count="6"></SkeletonList>
         <SettingsButtons class="settings-buttons" @openCreatingWindow="openCloseCreatingWindow" @logout="logout"></SettingsButtons>
         <CreatingWindow @closeCreatingWindow="openCloseCreatingWindow" :isAddingMoodboard="isAddingMoodboard"></CreatingWindow>
+        <FailedMessage v-if="moodboardsStore.errorMessage">{{ moodboardsStore.errorMessage }}</FailedMessage>
     </div>
 
 </template>
@@ -18,13 +19,12 @@ import SettingsButtons from '@/components/profile_page/SettingsButtons.vue';
 import { useMoodboardsStore } from '@/stores/useMoodboardsStore';
 import { useUserDataStore } from '@/stores/useUserDataStore';
 import { onMounted, ref } from 'vue';
-
+import FailedMessage from '@/components/FailedMessage.vue';
 
 
 const userStore = useUserDataStore()
 const moodboardsStore = useMoodboardsStore()
 const isAddingMoodboard = ref(false)
-const isFetchingMoodboards = ref(false)
 function logout() {
     userStore.logout()
     moodboardsStore.moodboards = []
@@ -36,14 +36,10 @@ function openCloseCreatingWindow(value: boolean) {
 
 onMounted(async () => {
     try {
-        isFetchingMoodboards.value = true
         await userStore.checkAccessToken()
-        await moodboardsStore.getMoodboards()
     } catch (error) {
         console.log(error)
-    } finally {
-        isFetchingMoodboards.value = false
-    }
+    } 
 })
 
 </script>

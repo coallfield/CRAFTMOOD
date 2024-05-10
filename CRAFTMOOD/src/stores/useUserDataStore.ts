@@ -6,7 +6,7 @@ import type { IUserRequest } from '@/interfaces/IUserRequest'
 import type { IResponseError } from '@/interfaces/IResponseError'
 import type { IServerResponse } from '@/interfaces/IServerResponse'
 import { SERVER_URL } from '@/config'
-
+import { useMoodboardsStore } from './useMoodboardsStore'
 export const useUserDataStore = defineStore('user', () => {
 
     const userData = ref<IServerResponse>({} as IServerResponse)
@@ -38,6 +38,7 @@ export const useUserDataStore = defineStore('user', () => {
                 setAuth(true)
                 setUserData(response)
                 router.push('/verify')
+             
             }
         } catch (error) {
             console.log(error)
@@ -49,7 +50,7 @@ export const useUserDataStore = defineStore('user', () => {
 
 
     const login = async (userRequest: IUserRequest) => {
-        console.log(userRequest)
+  
         try {
             setLoading(true)
             const response: IServerResponse | IResponseError = await AuthUser.login(`${SERVER_URL}/login`, userRequest)
@@ -62,6 +63,7 @@ export const useUserDataStore = defineStore('user', () => {
                 setAuth(true)
                 setUserData(response)
                 router.push('/')
+                await useMoodboardsStore().getMoodboards()
             }
         } catch (error) {
             console.log(error)

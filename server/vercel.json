@@ -7,5 +7,5 @@
     { "src": "/api/(.*)", "dest": "./index.js" },
     { "src": "/(.*)", "dest": "./index.js" }
   ],
-  "rewrites": [{ "source": "/(.*)", "destination": "/api" }] 
+  "rewrites": [{ "source": "/(.*)", "destination": "/" }] 
 }

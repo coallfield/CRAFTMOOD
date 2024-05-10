@@ -6,7 +6,10 @@ import type { IUserRequest } from '@/interfaces/IUserRequest'
 import type { IResponseError } from '@/interfaces/IResponseError'
 import type { IServerResponse } from '@/interfaces/IServerResponse'
 import { SERVER_URL } from '@/config'
+<<<<<<< HEAD
 import { useMoodboardsStore } from './useMoodboardsStore'
+=======
+>>>>>>> f44a573feeaa71d4ed373921d057d8b388a1c507
 export const useUserDataStore = defineStore('user', () => {
 
     const userData = ref<IServerResponse>({} as IServerResponse)
@@ -38,7 +41,11 @@ export const useUserDataStore = defineStore('user', () => {
                 setAuth(true)
                 setUserData(response)
                 router.push('/verify')
+<<<<<<< HEAD
              
+=======
+            
+>>>>>>> f44a573feeaa71d4ed373921d057d8b388a1c507
             }
         } catch (error) {
             console.log(error)

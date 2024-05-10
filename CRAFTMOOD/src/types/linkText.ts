@@ -1,0 +1,1 @@
+export type linkText = 'Already have an account?' | 'Don\'t have an account?' 

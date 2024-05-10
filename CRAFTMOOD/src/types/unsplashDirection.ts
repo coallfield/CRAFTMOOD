@@ -1,0 +1,1 @@
+export type UnsplashDirection = 'Basic' | 'Single' | 'Similar' | 'Proposed' | 'Home'

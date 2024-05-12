@@ -37,7 +37,9 @@ export const usePhotosStore = defineStore('photos', () => {
   }
 
   const getPhotos = async (storage: UnsplashDirection, id?: string, tags?: string, query?: string, page?: number) => {
+    setLoadings(true, false)
     try {
+      
       switch(storage) {
         case 'Basic':
           photos.value = await UnsplashApi.getPhotos(`${UNSPLASH_URL}=query=${queryParam.value}&page=${currentPage.value}&per_page=20`) as IPhoto[]
@@ -60,6 +62,8 @@ export const usePhotosStore = defineStore('photos', () => {
         setTimeout(() => {
             setErrorMessage('')
         },1500)
+    } finally {
+      setLoadings(false, true)
     }
   }
 

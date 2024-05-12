@@ -1,6 +1,6 @@
 <template>
-<div class="no-results">
-    <div class="no-results__message">Nothing was found for your request</div>
+<div  class="no-results">
+    <div  class="no-results__message">NOTHING WAS FOUND FOR YOUR REQUEST</div>
 </div>
 </template>
 
@@ -16,16 +16,11 @@ const NoResults = defineComponent({
 
 <style scoped>
 .no-results {
-   
-    display: flex;
-    justify-content: center;
-    align-items: center;
     height: 100%;
-    font-size: 2rem;
-   
-}
-.no-results-message {
     text-align: center;
+    font-size: 2.5rem;
+    margin: 5px;
+    font-weight: 600;
 }
 
 </style>

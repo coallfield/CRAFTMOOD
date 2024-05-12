@@ -6,10 +6,8 @@ import type { IUserRequest } from '@/interfaces/IUserRequest'
 import type { IResponseError } from '@/interfaces/IResponseError'
 import type { IServerResponse } from '@/interfaces/IServerResponse'
 import { SERVER_URL } from '@/config'
-<<<<<<< HEAD
 import { useMoodboardsStore } from './useMoodboardsStore'
-=======
->>>>>>> f44a573feeaa71d4ed373921d057d8b388a1c507
+
 export const useUserDataStore = defineStore('user', () => {
 
     const userData = ref<IServerResponse>({} as IServerResponse)
@@ -22,11 +20,10 @@ export const useUserDataStore = defineStore('user', () => {
     const registration = async (userRequest: IUserRequest) => {
         
         if(userRequest.password.length < 4) {
-            console.log(1)
             setErrorMessage('PASSWORD MUST BE AT LEAST 4 CHARACTERS LONG')
             setTimeout(() => {
                 setErrorMessage('')
-            }, 3000)
+            }, 1500)
             return
         }
         try {
@@ -36,21 +33,22 @@ export const useUserDataStore = defineStore('user', () => {
                 setErrorMessage(response.message)
                 setTimeout(() => {
                     setErrorMessage('')
-                }, 3000)
+                }, 1500)
             } else {
                 setAuth(true)
                 setUserData(response)
                 router.push('/verify')
-<<<<<<< HEAD
-             
-=======
-            
->>>>>>> f44a573feeaa71d4ed373921d057d8b388a1c507
             }
         } catch (error) {
+            setErrorMessage('FAILED TO REGISTRATION')
+            setTimeout(() => {
+                setErrorMessage('')
+            }, 1500)
             console.log(error)
         }
         finally {
+            userRequest.email = ''
+            userRequest.password = ''
             setLoading(false)
         }
     }
@@ -65,7 +63,7 @@ export const useUserDataStore = defineStore('user', () => {
                 setErrorMessage(response.message)
                 setTimeout(() => {
                     setErrorMessage('')
-                }, 3000)
+                },1500)
             } else {
                 setAuth(true)
                 setUserData(response)
@@ -73,9 +71,15 @@ export const useUserDataStore = defineStore('user', () => {
                 await useMoodboardsStore().getMoodboards()
             }
         } catch (error) {
+            setErrorMessage('FAILED TO LOG IN')
+            setTimeout(() => {
+                setErrorMessage('')
+            }, 1500)
             console.log(error)
         }
         finally {
+            userRequest.email = ''
+            userRequest.password = ''
             setLoading(false)
         }
         

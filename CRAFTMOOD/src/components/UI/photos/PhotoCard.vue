@@ -60,6 +60,7 @@ const moodboadStore = useMoodboardsStore()
     margin-bottom: 30px;
     break-inside: avoid;
     transition: 0.5s ease-in-out;
+    touch-action: manipulation;
 }
 
 .photo-card_animate:hover {

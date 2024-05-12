@@ -2,12 +2,17 @@
   <div class="home-page">
     <HomeFeatures></HomeFeatures>
     <HomePhotos ></HomePhotos>
+    <FailedMessage v-if="userStore.errorMessage !== ''">{{ userStore.errorMessage }}</FailedMessage>
   </div>
 </template>
 
 <script setup lang="ts">
+import FailedMessage from '@/components/FailedMessage.vue';
 import HomeFeatures from '@/components/home_page/HomeFeatures.vue';
 import HomePhotos from '@/components/home_page/HomePhotos.vue';
+import { useUserDataStore } from '@/stores/useUserDataStore';
+
+const userStore = useUserDataStore()
 </script>
 
 
